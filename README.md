@@ -1,6 +1,6 @@
-# nbdev-api-template
+# [WIP] nbdev-api-template
 
-Template Repository for using NBDev to deploy a REST API
+Draft Template Repository for using NBDev to deploy a REST API. Work in progress.
 
 Builds a docker container ready for deployment.
 
