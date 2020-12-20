@@ -14,20 +14,42 @@ repos:
         rev: '3.8.3'
         hooks:
         -   id: flake8
+            additional_dependencies: [flake8-typing-imports==1.6.0]
     -   repo: https://github.com/psf/black
         rev: '19.10b0'
         hooks:
         -   id: black
-    #-   repo: https://github.com/fastai/nbdev
-    #    rev: '1.1.3'
-    #    hooks:
-    #    -   id: nbdev
-    #        entry: nbdev_build_lib
-    #        language: python
+            language_version: python3.8
     -   repo: local
         hooks:
-        -   id: nbdev
-            name: nbdev
+        -   id: nbdev_build_lib
+            name: nbdev_build_lib
+            entry: nbdev_build_lib --fname
+            files: .ipynb
+            language: python
+    -   repo: local
+        hooks:
+        -   id: nbdev_clean_nbs
+            name: nbdev_clean_nbs
             entry: nbdev_clean_nbs --fname
             files: .ipynb
             language: python
+    -   repo: local
+        hooks:
+            -   id: tests
+                name: run tests
+                entry: pytest -v #-m fast
+                language: python
+                additional_dependencies: [pre-commit, pytest]
+                always_run: true
+                pass_filenames: false
+                types: [python]
+                stages: [commit]
+    -   repo: local
+        hooks:
+            -   id: tests
+                name: run tests
+                entry: pytest -x
+                language: system
+                types: [python]
+                stages: [push]

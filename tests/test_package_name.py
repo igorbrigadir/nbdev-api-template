@@ -1,4 +1,4 @@
-from package_name import __version__
+from myapi import __version__
 
 
 def test_version():
