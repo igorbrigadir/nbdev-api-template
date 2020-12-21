@@ -38,7 +38,7 @@ repos:
         hooks:
             -   id: tests
                 name: run tests
-                entry: pytest -v #-m fast
+                entry: pytest -v -m fast
                 language: python
                 additional_dependencies: [pre-commit, pytest]
                 always_run: true
