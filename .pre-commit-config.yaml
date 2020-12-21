@@ -24,7 +24,7 @@ repos:
         hooks:
         -   id: nbdev_build_lib
             name: nbdev_build_lib
-            entry: nbdev_build_lib --fname
+            entry: nbdev/build_lib --fname
             files: .ipynb
             language: python
     -   repo: local
