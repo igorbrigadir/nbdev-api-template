@@ -23,8 +23,9 @@ repos:
     -   repo: local
         hooks:
         -   id: nbdev_build_lib
-            name: nbdev_build_lib
-            entry: nbdev/build_lib --fname
+            name: build library with nbdev
+            entry: python nbdev/build_lib.py --fname
+            additional_dependencies: [nbdev]
             files: .ipynb
             language: python
     -   repo: local
