@@ -26,36 +26,3 @@ nbdevlib = "test"
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
-
-###############################################################
-# nbdev config:
-[DEFAULT]
-# All sections below are required unless otherwise specified
-# Project Specific:
-lib_name = "myapi"
-git_url = "https://github.com/recsyslabs/s7/tree/master/"
-lib_path = "myapi"
-title = "myapi"
-doc_baseurl = "/myapi/"
-
-# Optional:
-user = "recsyslabs"
-description = "Services"
-keywords = "recsys"
-author = "Igor Brigadir"
-author_email = "igor@recsyslabs.com"
-
-# Default:
-copyright = "recsyslabs"
-branch = "master"
-version = "0.0.1"
-min_python = "3.8"
-audience = "Developers"
-language = "English"
-custom_sidebar = false
-license = "apache2"
-status = 2
-nbs_path = "."
-host = "github"
-doc_host = "https://recsyslabs.github.io"
-doc_path = "docs"

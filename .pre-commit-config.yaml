@@ -10,16 +10,17 @@ repos:
             exclude: .ipynb
         -   id: check-yaml
         -   id: check-added-large-files
-    -   repo: https://gitlab.com/PyCQA/flake8
-        rev: '3.8.3'
-        hooks:
-        -   id: flake8
-            additional_dependencies: [flake8-typing-imports==1.6.0]
     -   repo: https://github.com/psf/black
         rev: '19.10b0'
         hooks:
         -   id: black
             language_version: python3.8
+    -   repo: https://gitlab.com/PyCQA/flake8
+        rev: '3.8.3'
+        hooks:
+        -   id: flake8
+            entry: flake8 --ignore=E501
+            additional_dependencies: [flake8-typing-imports==1.6.0]
     -   repo: local
         hooks:
         -   id: nbdev_build_lib
