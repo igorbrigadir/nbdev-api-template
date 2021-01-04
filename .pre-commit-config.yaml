@@ -23,17 +23,25 @@ repos:
             additional_dependencies: [flake8-typing-imports==1.6.0]
     -   repo: local
         hooks:
+        -   id: nbdev_clean_nbs
+            name: nbdev_clean_nbs
+            entry: nbdev_clean_nbs --fname
+            files: .ipynb
+            language: python
+    -   repo: local
+        hooks:
         -   id: nbdev_build_lib
-            name: build library with nbdev
-            entry: python nbdev/build_lib.py --fname
+            name: Build library with nbdev
+            entry: nbdev_build_lib --fname
             additional_dependencies: [nbdev]
             files: .ipynb
             language: python
     -   repo: local
         hooks:
-        -   id: nbdev_clean_nbs
-            name: nbdev_clean_nbs
-            entry: nbdev_clean_nbs --fname
+        -   id: nbdev_diff_nbs
+            name: diff nbdev_diff_nbs
+            entry: nbdev_diff_nbs --fname
+            additional_dependencies: [nbdev]
             files: .ipynb
             language: python
     -   repo: local
