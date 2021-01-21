@@ -1,6 +1,30 @@
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
+    -   repo: local
+        hooks:
+        -   id: nbdev_clean_nbs
+            name: nbdev_clean_nbs
+            entry: sh -xc echo "$@" | xargs --verbose -n1 sh -c \'for arg do nbdev_clean_nbs --fname "$arg"; black "$arg"; ...; done\' _ --
+            additional_dependencies: [nbdev==1.1.12]
+            files: .ipynb
+            language: python
+    -   repo: local
+        hooks:
+        -   id: nbdev_build_lib
+            name: Build library with nbdev
+            entry: sh -xc echo "$@" | xargs --verbose -n1 sh -c \'for arg do nbdev_build_lib --bare --fname "$arg"; black "$arg"; ...; done\' _ --
+            additional_dependencies: [nbdev==1.1.12]
+            files: .ipynb
+            language: python
+    -   repo: local
+        hooks:
+        -   id: nbdev_diff_nbs
+            name: diff nbdev_diff_nbs
+            entry: nbdev_diff_nbs
+            additional_dependencies: [nbdev==1.1.12]
+            pass_filenames: false
+            language: python
     -   repo: https://github.com/pre-commit/pre-commit-hooks
         rev: 'v2.4.0'
         hooks:
@@ -15,35 +39,13 @@ repos:
         hooks:
         -   id: black
             language_version: python3.8
+            exclude: _nbdev.py
     -   repo: https://gitlab.com/PyCQA/flake8
         rev: '3.8.3'
         hooks:
         -   id: flake8
             entry: flake8 --ignore=E501
             additional_dependencies: [flake8-typing-imports==1.6.0]
-    -   repo: local
-        hooks:
-        -   id: nbdev_clean_nbs
-            name: nbdev_clean_nbs
-            entry: nbdev_clean_nbs --fname
-            files: .ipynb
-            language: python
-    -   repo: local
-        hooks:
-        -   id: nbdev_build_lib
-            name: Build library with nbdev
-            entry: nbdev_build_lib --fname
-            additional_dependencies: [nbdev]
-            files: .ipynb
-            language: python
-    -   repo: local
-        hooks:
-        -   id: nbdev_diff_nbs
-            name: diff nbdev_diff_nbs
-            entry: nbdev_diff_nbs --fname
-            additional_dependencies: [nbdev]
-            files: .ipynb
-            language: python
     -   repo: local
         hooks:
             -   id: tests
