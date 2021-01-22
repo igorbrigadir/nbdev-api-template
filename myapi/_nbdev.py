@@ -2,10 +2,12 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"root": "test_nbdev.ipynb",
-         "read_item": "test_nbdev.ipynb",
-         "main": "test_nbdev.ipynb",
-         "app": "test_nbdev.ipynb"}
+index = {
+    "root": "test_nbdev.ipynb",
+    "read_item": "test_nbdev.ipynb",
+    "main": "test_nbdev.ipynb",
+    "app": "test_nbdev.ipynb",
+}
 
 modules = ["main.py"]
 

@@ -17,14 +17,6 @@ repos:
             additional_dependencies: [nbdev==1.1.12]
             files: .ipynb
             language: python
-    -   repo: local
-        hooks:
-        -   id: nbdev_diff_nbs
-            name: diff nbdev_diff_nbs
-            entry: nbdev_diff_nbs
-            additional_dependencies: [nbdev==1.1.12]
-            pass_filenames: false
-            language: python
     -   repo: https://github.com/pre-commit/pre-commit-hooks
         rev: 'v2.4.0'
         hooks:
@@ -39,7 +31,6 @@ repos:
         hooks:
         -   id: black
             language_version: python3.8
-            exclude: _nbdev.py
     -   repo: https://gitlab.com/PyCQA/flake8
         rev: '3.8.3'
         hooks:
