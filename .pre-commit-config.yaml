@@ -1,6 +1,7 @@
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
+    # Clean usueless Notebook metadata that adds extra changes and conflicts - eg: cell run counts:
     -   repo: local
         hooks:
         -   id: nbdev_clean_nbs
@@ -9,6 +10,7 @@ repos:
             additional_dependencies: [nbdev==1.1.12]
             files: .ipynb
             language: python
+    # Convert the notebooks into python scripts and format them with black, one file at a time with xargs:
     -   repo: local
         hooks:
         -   id: nbdev_build_lib
@@ -17,6 +19,13 @@ repos:
             additional_dependencies: [nbdev==1.1.12]
             files: .ipynb
             language: python
+    # black format for any other non notebook derived py files:
+    -   repo: https://github.com/psf/black
+        rev: '19.10b0'
+        hooks:
+        -   id: black
+            language_version: python3.8
+    # Trailing white space removal includes other files as too but excluding ipynb files, also a large file check:
     -   repo: https://github.com/pre-commit/pre-commit-hooks
         rev: 'v2.4.0'
         hooks:
@@ -26,17 +35,14 @@ repos:
             exclude: .ipynb
         -   id: check-yaml
         -   id: check-added-large-files
-    -   repo: https://github.com/psf/black
-        rev: '19.10b0'
-        hooks:
-        -   id: black
-            language_version: python3.8
+    # Flake python code style check but excluding long line errors (E501):
     -   repo: https://gitlab.com/PyCQA/flake8
         rev: '3.8.3'
         hooks:
         -   id: flake8
             entry: flake8 --ignore=E501
             additional_dependencies: [flake8-typing-imports==1.6.0]
+    # Run a subset of tests marked "fast" for commits only:
     -   repo: local
         hooks:
             -   id: tests
@@ -48,11 +54,13 @@ repos:
                 pass_filenames: false
                 types: [python]
                 stages: [commit]
+    # Run all the tests, including slow ones, and stopping at first failure when pushing:
     -   repo: local
         hooks:
             -   id: tests
                 name: run tests
                 entry: pytest -x
                 language: system
+                additional_dependencies: [pre-commit, pytest]
                 types: [python]
                 stages: [push]
