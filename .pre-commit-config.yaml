@@ -7,7 +7,7 @@ repos:
         -   id: nbdev_clean_nbs
             name: nbdev_clean_nbs
             entry: sh -xc echo "$@" | xargs --verbose -n1 sh -c \'for arg do nbdev_clean_nbs --fname "$arg"; black "$arg"; ...; done\' _ --
-            additional_dependencies: [nbdev==1.1.22]
+            additional_dependencies: [nbdev>=1.1.22, black>=21.9b0]
             files: .ipynb
             language: python
     # Convert the notebooks into python scripts and format them with black, one file at a time with xargs:
@@ -16,7 +16,7 @@ repos:
         -   id: nbdev_build_lib
             name: Build library with nbdev
             entry: sh -xc echo "$@" | xargs --verbose -n1 sh -c \'for arg do nbdev_build_lib --bare --fname "$arg"; black "$arg"; ...; done\' _ --
-            additional_dependencies: [nbdev==1.1.22]
+            additional_dependencies: [nbdev>=1.1.22, black>=21.9b0]
             files: .ipynb
             language: python
     # black format for any other non notebook derived py files:
@@ -41,7 +41,7 @@ repos:
         hooks:
         -   id: flake8
             entry: flake8 --ignore=E501
-            additional_dependencies: [flake8-typing-imports==1.10.1]
+            additional_dependencies: [flake8-typing-imports>=1.10.1]
     # Run a subset of tests marked "fast" for commits only:
     -   repo: local
         hooks:
@@ -49,7 +49,7 @@ repos:
                 name: run tests
                 entry: pytest -v -m fast
                 language: python
-                additional_dependencies: [pre-commit, pytest]
+                additional_dependencies: [pre-commit>=2.10, pytest]
                 always_run: true
                 pass_filenames: false
                 types: [python]
@@ -61,6 +61,6 @@ repos:
                 name: run tests
                 entry: pytest -x
                 language: system
-                additional_dependencies: [pre-commit, pytest]
+                additional_dependencies: [pre-commit>=2.10, pytest]
                 types: [python]
                 stages: [push]
