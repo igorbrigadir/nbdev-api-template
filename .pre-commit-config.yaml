@@ -7,7 +7,7 @@ repos:
         -   id: nbdev_clean_nbs
             name: nbdev_clean_nbs
             entry: sh -xc echo "$@" | xargs --verbose -n1 sh -c \'for arg do nbdev_clean_nbs --fname "$arg"; black "$arg"; ...; done\' _ --
-            additional_dependencies: [nbdev==1.1.12]
+            additional_dependencies: [nbdev==1.1.22]
             files: .ipynb
             language: python
     # Convert the notebooks into python scripts and format them with black, one file at a time with xargs:
@@ -16,18 +16,18 @@ repos:
         -   id: nbdev_build_lib
             name: Build library with nbdev
             entry: sh -xc echo "$@" | xargs --verbose -n1 sh -c \'for arg do nbdev_build_lib --bare --fname "$arg"; black "$arg"; ...; done\' _ --
-            additional_dependencies: [nbdev==1.1.12]
+            additional_dependencies: [nbdev==1.1.22]
             files: .ipynb
             language: python
     # black format for any other non notebook derived py files:
     -   repo: https://github.com/psf/black
-        rev: '19.10b0'
+        rev: '21.9b0'
         hooks:
         -   id: black
             language_version: python3.8
     # Trailing white space removal includes other files as too but excluding ipynb files, also a large file check:
     -   repo: https://github.com/pre-commit/pre-commit-hooks
-        rev: 'v2.4.0'
+        rev: 'v4.0.1'
         hooks:
         -   id: trailing-whitespace
             exclude: .ipynb
@@ -37,11 +37,11 @@ repos:
         -   id: check-added-large-files
     # Flake python code style check but excluding long line errors (E501):
     -   repo: https://gitlab.com/PyCQA/flake8
-        rev: '3.8.3'
+        rev: '3.9.2'
         hooks:
         -   id: flake8
             entry: flake8 --ignore=E501
-            additional_dependencies: [flake8-typing-imports==1.6.0]
+            additional_dependencies: [flake8-typing-imports==1.10.1]
     # Run a subset of tests marked "fast" for commits only:
     -   repo: local
         hooks:
