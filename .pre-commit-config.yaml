@@ -1,6 +1,13 @@
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
+    -   repo: meta
+        hooks:
+        -   id: identity
+            name: identity (filtered)
+            files: .ipynb
+        -   id: identity
+            name: identity (all)
     # Clean usueless Notebook metadata that adds extra changes and conflicts - eg: cell run counts:
     -   repo: local
         hooks:
