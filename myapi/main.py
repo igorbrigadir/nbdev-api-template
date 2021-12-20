@@ -18,5 +18,6 @@ async def read_item(item_id: int, q: str = None):
 
 
 def main():
-    print("Loading Hello World 3")
+    print("Loading Hello World...")
+
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True, workers=2)
