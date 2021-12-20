@@ -4,20 +4,21 @@ repos:
     -   repo: meta
         hooks:
         -   id: identity
-            name: identity (filtered)
-            files: .ipynb
+            name: Modified Files
         -   id: identity
-            name: identity (all)
+            name: Modified Notebooks
+            files: .ipynb
     # Clean usueless Notebook metadata that adds extra changes and conflicts - eg: cell run counts:
     -   repo: local
         hooks:
         -   id: nbdev_clean_nbs
-            name: nbdev_clean_nbs
-            entry: sh -xc 'echo "$@"' | xargs --verbose -n1 sh -c \'for arg do nbdev_clean_nbs --fname "$arg"; done\' _ --
-            additional_dependencies: [nbdev>=1.1.22, black>=21.9b0]
+            name: Clean Notebooks
+            #entry: sh -xc 'echo "$@"' | xargs --verbose -n1 sh -c \'for arg do nbdev_clean_nbs --fname "$arg"; done\' _ --
+            entry: nbdev_clean_nbs
+            additional_dependencies: [nbdev>=1.1.22, "black[jupyter]>=21.9b0"]
             files: .ipynb
             always_run: true
-            pass_filenames: true
+            pass_filenames: false
             language: python
     # Convert the notebooks into python scripts and format them with black, one file at a time with xargs:
     -   repo: local
@@ -26,10 +27,11 @@ repos:
             name: Build library with nbdev
             #entry: bash -c 'echo "$@"' #sh -xc echo "$@" #| xargs --verbose -n1 sh -c \'for arg do nbdev_build_lib --bare --fname "$arg"; black "$arg"; ...; done\' _ --
             #entry: sh -xc echo "$@" | xargs --verbose -n1 sh -c \'for arg do nbdev_build_lib --bare --fname "$arg"; black "$arg"; done\' _ --
-            entry: sh -xc 'echo "$@"' | xargs --verbose -n1 sh -c \'for arg do echo "$arg"; done\' _ --
-
-            additional_dependencies: [nbdev>=1.1.22, black>=21.9b0]
+            entry: bash -c 'nbdev_build_lib --bare; black .' --
+            additional_dependencies: [nbdev>=1.1.22, "black[jupyter]>=21.9b0"]
             files: .ipynb
+            always_run: true
+            pass_filenames: false
             language: python
     # black format for any other non notebook derived py files:
     -   repo: https://github.com/psf/black
