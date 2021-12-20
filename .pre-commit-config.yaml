@@ -13,11 +13,9 @@ repos:
         hooks:
         -   id: nbdev_clean_nbs
             name: Clean Notebooks
-            #entry: sh -xc 'echo "$@"' | xargs --verbose -n1 sh -c \'for arg do nbdev_clean_nbs --fname "$arg"; done\' _ --
             entry: nbdev_clean_nbs
             additional_dependencies: [nbdev>=1.1.22, "black[jupyter]>=21.9b0"]
             files: .ipynb
-            always_run: true
             pass_filenames: false
             language: python
     # Convert the notebooks into python scripts and format them with black, one file at a time with xargs:
@@ -25,12 +23,9 @@ repos:
         hooks:
         -   id: nbdev_build_lib
             name: Build library with nbdev
-            #entry: bash -c 'echo "$@"' #sh -xc echo "$@" #| xargs --verbose -n1 sh -c \'for arg do nbdev_build_lib --bare --fname "$arg"; black "$arg"; ...; done\' _ --
-            #entry: sh -xc echo "$@" | xargs --verbose -n1 sh -c \'for arg do nbdev_build_lib --bare --fname "$arg"; black "$arg"; done\' _ --
             entry: bash -c 'nbdev_build_lib --bare; black .' --
             additional_dependencies: [nbdev>=1.1.22, "black[jupyter]>=21.9b0"]
             files: .ipynb
-            always_run: true
             pass_filenames: false
             language: python
     # black format for any other non notebook derived py files:
